@@ -2,7 +2,7 @@
   "use strict";
 
   const GITHUB_USER = "ypd651";
-  const CV_URL = "img/Copia%20de%20Hoja%20de%20Vida%20Conductor%20Formal%20Azul%20Blanco.pdf";
+  const CV_URL = "img/Hoja de Vida.pdf";
   const THEME_STORAGE_KEY = "portafolio-theme";
   const SNOW_STORAGE_KEY = "portafolio-snow";
   const REPOS_CACHE_KEY = "portafolio-repos-cache-v2";
