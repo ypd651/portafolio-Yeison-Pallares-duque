@@ -4,20 +4,64 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Yeison Pallares — Desarrollador de Software Junior</title>
-<meta name="description" content="Portafolio de Yeison Fernei Pallares Duque, desarrollador de software junior en formación en Campuslands. Proyectos, habilidades y repositorios de GitHub.">
-<link rel="icon" href="data:,">
+<meta name="description" content="Portafolio digital de Yeison Fernei Pallares Duque, desarrollador de software junior en Campuslands. Proyectos con Java, Spring Boot, Python, JavaScript, Docker, n8n e IA.">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='8' fill='%231B5E43'/><text x='16' y='22' font-family='Georgia,serif' font-size='16' font-weight='bold' fill='%23F3EFE6' text-anchor='middle'>YP</text></svg>">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,500;9..144,600;9..144,700;9..144,900&family=Work+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Work+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<script>
+  (function () {
+    try {
+      var saved = localStorage.getItem("portafolio-theme");
+      var prefersDark = window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches;
+      if ((saved || (prefersDark ? "dark" : "light")) === "dark") {
+        document.documentElement.setAttribute("data-theme", "dark");
+      }
+    } catch (e) {}
+  })();
+</script>
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
+<div class="reading-progress" id="readingProgress" aria-hidden="true"></div>
+
+<div class="holiday-garland" id="holidayGarland" aria-hidden="true">
+  <span class="light-dot" style="--delay:0s"></span>
+  <span class="light-dot" style="--delay:0.8s"></span>
+  <span class="light-dot" style="--delay:1.6s"></span>
+  <span class="light-dot" style="--delay:0.4s"></span>
+  <span class="light-dot" style="--delay:1.2s"></span>
+  <span class="light-dot" style="--delay:2.0s"></span>
+  <span class="light-dot" style="--delay:0.6s"></span>
+  <span class="light-dot" style="--delay:1.4s"></span>
+  <span class="light-dot" style="--delay:0.2s"></span>
+  <span class="light-dot" style="--delay:1.8s"></span>
+  <span class="light-dot" style="--delay:1.0s"></span>
+  <span class="light-dot" style="--delay:0.5s"></span>
+</div>
+
+<canvas class="snow-canvas" id="snowCanvas" aria-hidden="true"></canvas>
 <div class="cursor-glow" id="cursorGlow" aria-hidden="true"></div>
 
-<button class="mobile-toggle" id="mobileToggle" aria-label="Abrir menú" aria-expanded="false">
-  <span></span><span></span><span></span>
-</button>
+<div class="floating-controls" aria-label="Controles rápidos de apariencia">
+  <button class="control-pill" id="snowToggle" type="button" aria-pressed="true" title="Activar o pausar efecto de nieve">
+    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+      <path d="M12 2v20M2 12h20M4.93 4.93l14.14 14.14M19.07 4.93 4.93 19.07"/>
+    </svg>
+    <span class="snow-toggle-label">Nieve</span>
+  </button>
+  <button class="control-pill theme-toggle-btn" id="floatingThemeToggle" type="button" aria-label="Cambiar tema">
+    <svg class="icon-sun" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+    <svg class="icon-moon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M20 14.5A8.5 8.5 0 1 1 9.5 4a7 7 0 0 0 10.5 10.5Z"/></svg>
+    <span class="theme-toggle-label">Modo oscuro</span>
+  </button>
+  <button class="mobile-toggle" id="mobileToggle" type="button" aria-label="Abrir menú" aria-expanded="false">
+    <span></span><span></span><span></span>
+  </button>
+</div>
+
+<div class="sidebar-backdrop" id="sidebarBackdrop" aria-hidden="true"></div>
 
 <div class="layout">
 
@@ -25,34 +69,52 @@
     <div class="sidebar-inner">
 
       <div class="identity">
-        <div class="avatar-ring">
-          <img class="avatar-photo" src="img/foto.jpg" alt="Foto de Yeison Pallares">
+        <div class="avatar-wrap">
+          <div class="avatar-ring">
+            <img class="avatar-photo" src="img/foto.jpg" alt="Foto de Yeison Pallares">
+          </div>
+          <span class="avatar-badge" title="Edición Invierno 2026" aria-hidden="true">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M12 2v20M4.93 4.93l14.14 14.14M19.07 4.93 4.93 19.07M2 12h20"/>
+            </svg>
+          </span>
         </div>
         <h1 class="name">Yeison<br>Pallares</h1>
         <p class="role">Desarrollador de&nbsp;Software Junior</p>
         <p class="location">Bucaramanga, Colombia</p>
+        <div class="status-chip">
+          <span class="status-dot" aria-hidden="true"></span>
+          <span>Disponible · Nov 2026</span>
+        </div>
       </div>
 
       <nav class="nav" aria-label="Navegación principal">
-        <a href="#inicio" class="nav-link" data-index="01">Inicio</a>
-        <a href="#sobre-mi" class="nav-link" data-index="02">Sobre mí</a>
+        <a href="#inicio" class="nav-link active" data-index="01">Inicio</a>
+        <a href="#sobre-mi" class="nav-link" data-index="02">Sobre mí &amp; Stack</a>
         <a href="#formacion" class="nav-link" data-index="03">Formación</a>
-        <a href="#proyectos" class="nav-link" data-index="04">Proyectos</a>
-        <a href="#repositorios" class="nav-link" data-index="05">GitHub</a>
+        <a href="#proyectos" class="nav-link" data-index="04">Proyectos clave</a>
+        <a href="#repositorios" class="nav-link" data-index="05">GitHub en vivo</a>
         <a href="#objetivo" class="nav-link" data-index="06">Metas</a>
         <a href="#contacto" class="nav-link" data-index="07">Contacto</a>
       </nav>
 
       <div class="sidebar-footer">
-        <a class="cv-download" href="img/CV-Yeison-Pallares.pdf" download>
-          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12"/><path d="m7 10 5 5 5-5"/><path d="M5 21h14"/></svg>
-          Descargar CV
-        </a>
-        <button class="theme-toggle" id="themeToggle" aria-label="Cambiar a modo oscuro">
-          <svg class="icon-sun" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
-          <svg class="icon-moon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M20 14.5A8.5 8.5 0 1 1 9.5 4a7 7 0 0 0 10.5 10.5Z"/></svg>
+        <div class="cv-group">
+          <a class="cv-download" href="img/Copia%20de%20Hoja%20de%20Vida%20Conductor%20Formal%20Azul%20Blanco.pdf" download="CV-Yeison-Pallares-2026.pdf">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12"/><path d="m7 10 5 5 5-5"/><path d="M5 21h14"/></svg>
+            Descargar CV
+          </a>
+          <button class="cv-preview-btn" type="button" data-open-cv aria-label="Ver vista previa de la hoja de vida">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7-10-7-10-7Z"/><circle cx="12" cy="12" r="3"/></svg>
+          </button>
+        </div>
+
+        <button class="theme-toggle theme-toggle-btn" id="themeToggle" type="button" aria-label="Cambiar a modo oscuro">
+          <svg class="icon-sun" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+          <svg class="icon-moon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M20 14.5A8.5 8.5 0 1 1 9.5 4a7 7 0 0 0 10.5 10.5Z"/></svg>
           <span class="theme-toggle-label">Modo oscuro</span>
         </button>
+
         <div class="social-links">
           <a href="https://github.com/ypd651" target="_blank" rel="noopener noreferrer">GitHub</a>
           <a href="mailto:yeisonpallares80@gmail.com">Correo</a>
@@ -69,27 +131,54 @@
       <div class="hero-blob blob-1" aria-hidden="true"></div>
       <div class="hero-blob blob-2" aria-hidden="true"></div>
 
-      <p class="hero-eyebrow reveal">Cuaderno de trabajo — 2026</p>
-      <h2 class="hero-headline reveal">Construyo software con calma,<br><span class="gradient-text">una función a la vez.</span></h2>
-      <p class="hero-sub reveal">Soy Yeison, desarrollador de software junior formándome en Campuslands. Trabajo con Python, JavaScript y automatización para convertir procesos manuales en herramientas que otros puedan usar.</p>
+      <div class="season-banner reveal">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M12 2v20M4.93 4.93l14.14 14.14M19.07 4.93 4.93 19.07M2 12h20"/>
+        </svg>
+        <span>Edición Invierno · Noviembre 2026</span>
+      </div>
+
+      <h2 class="hero-headline reveal">Construyo software sólido,<br><span class="gradient-text">de la idea a producción.</span></h2>
+      <p class="hero-sub reveal">Soy Yeison Fernei Pallares Duque, desarrollador de software junior en etapa de cierre de formación en Campuslands. Diseño APIs REST con Java y Spring Boot, automatizo flujos inteligentes con n8n e IA, y construyo interfaces web funcionales.</p>
 
       <div class="hero-actions reveal">
-        <a class="btn btn-primary" href="img/CV-Yeison-Pallares.pdf" download>
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12"/><path d="m7 10 5 5 5-5"/><path d="M5 21h14"/></svg>
+        <a class="btn btn-primary" href="img/Copia%20de%20Hoja%20de%20Vida%20Conductor%20Formal%20Azul%20Blanco.pdf" download="CV-Yeison-Pallares-2026.pdf">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12"/><path d="m7 10 5 5 5-5"/><path d="M5 21h14"/></svg>
           Descargar hoja de vida
         </a>
+        <button class="btn btn-outline" type="button" data-open-cv>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7-10-7-10-7Z"/><circle cx="12" cy="12" r="3"/></svg>
+          Ver CV en línea
+        </button>
         <a class="btn btn-outline" href="https://wa.me/573152878971" target="_blank" rel="noopener noreferrer">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M17.6 6.3A8.9 8.9 0 0 0 12.04 4c-4.9 0-8.9 4-8.9 8.9 0 1.57.4 3.1 1.2 4.44L3 21l3.77-1.3a8.9 8.9 0 0 0 5.27 1.7h.01c4.9 0 8.9-4 8.9-8.9 0-2.38-.93-4.62-2.35-6.2ZM12.05 19.6a7.4 7.4 0 0 1-4.5-1.73l-.32-.24-2.4.83.8-2.34-.26-.35a7.36 7.36 0 0 1-1.4-4.34c0-4.07 3.32-7.4 7.4-7.4a7.36 7.36 0 0 1 7.4 7.4c0 4.08-3.31 7.17-6.72 7.17Zm4.07-5.53c-.22-.11-1.31-.65-1.51-.72-.2-.07-.35-.11-.5.11-.15.22-.57.72-.7.87-.13.15-.26.16-.48.05-.22-.11-.93-.34-1.77-1.09-.65-.58-1.1-1.3-1.22-1.52-.13-.22-.01-.34.1-.45.1-.1.22-.26.33-.39.11-.13.15-.22.22-.37.07-.15.04-.28-.02-.39-.06-.11-.5-1.2-.68-1.65-.18-.43-.36-.37-.5-.38h-.43c-.15 0-.39.05-.6.28-.2.22-.8.78-.8 1.9 0 1.12.82 2.2.93 2.35.11.15 1.6 2.45 3.89 3.43.54.23.96.37 1.29.48.54.17 1.03.15 1.42.09.43-.06 1.31-.53 1.5-1.05.18-.51.18-.95.13-1.04-.05-.1-.2-.15-.42-.26Z"/></svg>
-          Escríbeme por WhatsApp
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.6 6.3A8.9 8.9 0 0 0 12.04 4c-4.9 0-8.9 4-8.9 8.9 0 1.57.4 3.1 1.2 4.44L3 21l3.77-1.3a8.9 8.9 0 0 0 5.27 1.7h.01c4.9 0 8.9-4 8.9-8.9 0-2.38-.93-4.62-2.35-6.2ZM12.05 19.6a7.4 7.4 0 0 1-4.5-1.73l-.32-.24-2.4.83.8-2.34-.26-.35a7.36 7.36 0 0 1-1.4-4.34c0-4.07 3.32-7.4 7.4-7.4a7.36 7.36 0 0 1 7.4 7.4c0 4.08-3.31 7.17-6.72 7.17Zm4.07-5.53c-.22-.11-1.31-.65-1.51-.72-.2-.07-.35-.11-.5.11-.15.22-.57.72-.7.87-.13.15-.26.16-.48.05-.22-.11-.93-.34-1.77-1.09-.65-.58-1.1-1.3-1.22-1.52-.13-.22-.01-.34.1-.45.1-.1.22-.26.33-.39.11-.13.15-.22.22-.37.07-.15.04-.28-.02-.39-.06-.11-.5-1.2-.68-1.65-.18-.43-.36-.37-.5-.38h-.43c-.15 0-.39.05-.6.28-.2.22-.8.78-.8 1.9 0 1.12.82 2.2.93 2.35.11.15 1.6 2.45 3.89 3.43.54.23.96.37 1.29.48.54.17 1.03.15 1.42.09.43-.06 1.31-.53 1.5-1.05.18-.51.18-.95.13-1.04-.05-.1-.2-.15-.42-.26Z"/></svg>
+          WhatsApp
         </a>
       </div>
 
       <div class="hero-tags reveal">
+        <span>Java 17 / 21</span>
+        <span>Spring Boot</span>
+        <span>PostgreSQL &amp; MySQL</span>
         <span>Python</span>
         <span>JavaScript</span>
-        <span>HTML &amp; CSS</span>
-        <span>MySQL</span>
-        <span>n8n</span>
+        <span>n8n &amp; RAG</span>
+        <span>Docker</span>
+      </div>
+
+      <div class="hero-highlights reveal">
+        <div class="highlight-card">
+          <span class="highlight-num" id="statPublicRepos">—</span>
+          <span class="highlight-label">Repositorios públicos en vivo</span>
+        </div>
+        <div class="highlight-card">
+          <span class="highlight-num">6+</span>
+          <span class="highlight-label">Proyectos full-stack &amp; IA</span>
+        </div>
+        <div class="highlight-card">
+          <span class="highlight-num">B2</span>
+          <span class="highlight-label">Nivel de inglés certificado</span>
+        </div>
       </div>
 
       <a href="#sobre-mi" class="scroll-cue" aria-label="Bajar a la siguiente sección">
@@ -99,21 +188,63 @@
 
     <section id="sobre-mi" class="section">
       <p class="section-index reveal">02</p>
-      <h3 class="section-title reveal">Sobre mí</h3>
+      <h3 class="section-title reveal">Sobre mí &amp; Stack Tecnológico</h3>
       <div class="about-grid reveal">
-        <p class="about-text">
-          Estoy en las primeras etapas de mi carrera como desarrollador, con conocimientos en Python, JavaScript, HTML, CSS, MySQL y automatización de procesos con n8n. Me interesa construir soluciones tecnológicas reales, optimizar procesos mediante automatización y seguir fortaleciendo mis habilidades en desarrollo de software y trabajo colaborativo.
-        </p>
+        <div>
+          <p class="about-text">
+            Soy desarrollador de software junior con formación práctica en Java, Spring Boot, Python, JavaScript, HTML, CSS, PostgreSQL, MySQL y automatización de procesos con n8n. Me enfoca diseñar soluciones tecnológicas reales: desde plataformas con autenticación JWT, control por roles y Docker, hasta flujos con búsqueda semántica (RAG) e inteligencia artificial.
+          </p>
+          <div class="lang-note">Idiomas: Español (nativo) · Inglés — nivel B2</div>
+        </div>
         <ul class="traits">
-          <li><span>Paciencia</span></li>
-          <li><span>Creatividad</span></li>
-          <li><span>Optimismo</span></li>
-          <li><span>Disciplina</span></li>
+          <li><span>Paciencia y atención al detalle</span></li>
+          <li><span>Creatividad orientada a soluciones</span></li>
+          <li><span>Optimismo y adaptabilidad</span></li>
+          <li><span>Disciplina en pruebas y buenas prácticas</span></li>
           <li><span>Aprendizaje continuo</span></li>
-          <li><span>Trabajo en equipo</span></li>
+          <li><span>Trabajo colaborativo en equipo</span></li>
         </ul>
       </div>
-      <div class="lang-note reveal">Inglés — nivel B2</div>
+
+      <div class="stack-grid reveal">
+        <div class="stack-box">
+          <h4>Backend &amp; Seguridad</h4>
+          <div class="stack-pills">
+            <span>Java 17 / 21</span>
+            <span>Spring Boot</span>
+            <span>Spring Security</span>
+            <span>JWT &amp; RBAC</span>
+            <span>JPA / Hibernate</span>
+            <span>Python</span>
+            <span>Swagger / OpenAPI</span>
+            <span>JUnit 5 &amp; Mockito</span>
+          </div>
+        </div>
+        <div class="stack-box">
+          <h4>Datos, IA &amp; Automatización</h4>
+          <div class="stack-pills">
+            <span>PostgreSQL</span>
+            <span>MySQL</span>
+            <span>H2</span>
+            <span>Qdrant (Vector DB)</span>
+            <span>RAG &amp; Similitud Coseno</span>
+            <span>n8n</span>
+            <span>Google Gemini</span>
+          </div>
+        </div>
+        <div class="stack-box">
+          <h4>Frontend &amp; Infraestructura</h4>
+          <div class="stack-pills">
+            <span>JavaScript (ES6+)</span>
+            <span>HTML5 &amp; CSS3</span>
+            <span>Arquitectura SPA</span>
+            <span>Leaflet</span>
+            <span>Docker &amp; Compose</span>
+            <span>Nginx</span>
+            <span>Git &amp; GitHub</span>
+          </div>
+        </div>
+      </div>
     </section>
 
     <section id="formacion" class="section">
@@ -123,58 +254,143 @@
         <li class="timeline-item reveal">
           <p class="timeline-date">Dic 2025 — Nov 2026</p>
           <h4 class="timeline-title">Técnico en Programación Avanzada</h4>
-          <p class="timeline-place">Campuslands, Girón</p>
+          <p class="timeline-place">Campuslands, Girón — Desarrollo full-stack, arquitectura backend con Spring Boot, bases de datos relacionales, contenedores y automatización.</p>
         </li>
         <li class="timeline-item reveal">
           <p class="timeline-date">2025</p>
-          <h4 class="timeline-title">Bachiller</h4>
+          <h4 class="timeline-title">Bachiller Académico</h4>
           <p class="timeline-place">Colegio Bicentenario, Bucaramanga</p>
         </li>
       </ol>
     </section>
 
     <section id="proyectos" class="section">
-      <p class="section-index reveal">04</p>
-      <h3 class="section-title reveal">Proyectos</h3>
-      <p class="section-lead reveal">Proyectos académicos desarrollados durante mi formación, en orden cronológico.</p>
+      <div class="section-head-row reveal">
+        <div>
+          <p class="section-index">04</p>
+          <h3 class="section-title">Proyectos clave</h3>
+          <p class="section-lead">Proyectos académicos y empresariales destacados de mi hoja de vida, en orden cronológico con acceso directo a su código fuente.</p>
+        </div>
+      </div>
 
-      <ol class="ledger">
-        <li class="ledger-entry reveal">
+      <div class="filter-bar reveal" id="featuredFilterBar" role="tablist" aria-label="Filtrar proyectos clave">
+        <button class="filter-chip active" type="button" data-filter="all">Todos (6)</button>
+        <button class="filter-chip" type="button" data-filter="java">Java &amp; Spring</button>
+        <button class="filter-chip" type="button" data-filter="ai">IA &amp; n8n</button>
+        <button class="filter-chip" type="button" data-filter="web">Frontend &amp; JS</button>
+      </div>
+
+      <ol class="ledger" id="featuredList">
+        <li class="ledger-entry reveal" data-category="java ai">
+          <p class="ledger-num">006</p>
+          <div class="ledger-body">
+            <div class="ledger-head">
+              <h4>AutoTag Docs — Búsqueda Semántica PDF</h4>
+              <span class="ledger-date">Noviembre 2026</span>
+            </div>
+            <p>Plataforma orientada a eventos para la ingesta asíncrona de documentos PDF, fragmentación de texto (RAG), etiquetado semántico automático y búsqueda vectorial por similitud coseno, integrando API REST, orquestación en n8n y SPA.</p>
+            <div class="ledger-stack">
+              <span>Java 21</span><span>Spring Boot</span><span>PostgreSQL</span><span>Qdrant</span><span>n8n</span><span>Docker Compose</span>
+            </div>
+            <div class="ledger-links">
+              <a class="direct-link" href="https://github.com/ypd651/autotag-docs" target="_blank" rel="noopener noreferrer">
+                Ver proyecto en GitHub <span aria-hidden="true">↗</span>
+              </a>
+            </div>
+          </div>
+        </li>
+
+        <li class="ledger-entry reveal" data-category="java">
+          <p class="ledger-num">005</p>
+          <div class="ledger-body">
+            <div class="ledger-head">
+              <h4>TechNova IT Helpdesk — Gestión de Tickets TI</h4>
+              <span class="ledger-date">Octubre 2026</span>
+            </div>
+            <p>Sistema empresarial de mesa de ayuda TI con ciclo de vida controlado de incidencias, SLA, autenticación segura mediante JWT y control de acceso por roles (RBAC), documentación Swagger/OpenAPI, auditoría y pruebas automatizadas.</p>
+            <div class="ledger-stack">
+              <span>Java 21</span><span>Spring Boot</span><span>Spring Security</span><span>JWT &amp; RBAC</span><span>PostgreSQL</span><span>Swagger</span><span>JUnit 5 &amp; Mockito</span>
+            </div>
+            <div class="ledger-links">
+              <a class="direct-link" href="https://github.com/ypd651/Spring-boot-final" target="_blank" rel="noopener noreferrer">
+                Ver proyecto en GitHub <span aria-hidden="true">↗</span>
+              </a>
+            </div>
+          </div>
+        </li>
+
+        <li class="ledger-entry reveal" data-category="java">
+          <p class="ledger-num">004</p>
+          <div class="ledger-body">
+            <div class="ledger-head">
+              <h4>CampusDesk — Plataforma Contenerizada</h4>
+              <span class="ledger-date">Octubre 2026</span>
+            </div>
+            <p>Sistema de gestión con arquitectura contenerizada listo para despliegue, integrando backend en Spring Boot, base de datos PostgreSQL 17, proxy inverso Nginx, autenticación JWT y orquestación completa mediante Docker Compose.</p>
+            <div class="ledger-stack">
+              <span>Java 21</span><span>Spring Boot</span><span>PostgreSQL 17</span><span>Nginx</span><span>Docker Compose</span>
+            </div>
+            <div class="ledger-links">
+              <a class="direct-link" href="https://github.com/ypd651/CAMPUSDESK-Spring-boot" target="_blank" rel="noopener noreferrer">
+                Ver proyecto en GitHub <span aria-hidden="true">↗</span>
+              </a>
+            </div>
+          </div>
+        </li>
+
+        <li class="ledger-entry reveal" data-category="java web">
           <p class="ledger-num">003</p>
           <div class="ledger-body">
             <div class="ledger-head">
-              <h4>Plataforma Inteligente de Reportes Urbanos</h4>
-              <span class="ledger-date">Junio 2026</span>
+              <h4>VetCare Pro — Gestión Veterinaria</h4>
+              <span class="ledger-date">Septiembre — Noviembre 2026</span>
             </div>
-            <p>Plataforma web para el reporte de incidentes urbanos, con inteligencia artificial, automatización con n8n, Google Gemini, Google Sheets y Leaflet para el análisis, almacenamiento y visualización geográfica de los reportes.</p>
+            <p>Aplicación web full-stack para clínicas veterinarias orientada a la gestión de propietarios, pacientes y consultas médicas. Incorpora detección de conflictos de agenda (±29 min), expediente clínico exportable a PDF y alertas preventivas de vacunación.</p>
             <div class="ledger-stack">
-              <span>n8n</span><span>Google Gemini</span><span>Google Sheets</span><span>Leaflet</span>
+              <span>Java 17</span><span>Spring Boot</span><span>JPA</span><span>H2</span><span>Swagger</span><span>MockMvc</span><span>Docker</span>
+            </div>
+            <div class="ledger-links">
+              <a class="direct-link" href="https://github.com/ypd651/VetCare-Pro-SB" target="_blank" rel="noopener noreferrer">
+                Ver proyecto en GitHub <span aria-hidden="true">↗</span>
+              </a>
             </div>
           </div>
         </li>
-        <li class="ledger-entry reveal">
+
+        <li class="ledger-entry reveal" data-category="ai web">
           <p class="ledger-num">002</p>
           <div class="ledger-body">
             <div class="ledger-head">
-              <h4>Sistema de Gestión Académica</h4>
-              <span class="ledger-date">Mayo 2026</span>
+              <h4>SmartCity-Fix — Reportes Urbanos Inteligentes</h4>
+              <span class="ledger-date">Junio 2026</span>
             </div>
-            <p>Aplicación web para la gestión de tareas académicas, con calendario interactivo, referencias obligatorias y almacenamiento local de la información del usuario.</p>
+            <p>Plataforma web para el registro de incidentes urbanos con análisis de imágenes mediante IA, automatización con n8n, Google Gemini, Google Sheets y mapas interactivos en Leaflet para la visualización geográfica en tiempo real.</p>
             <div class="ledger-stack">
-              <span>HTML</span><span>CSS</span><span>JavaScript</span><span>LocalStorage</span>
+              <span>n8n</span><span>Google Gemini</span><span>Google Sheets</span><span>Leaflet</span><span>JavaScript</span>
+            </div>
+            <div class="ledger-links">
+              <a class="direct-link" href="https://github.com/ypd651/Proyecto-SmartCity-n8n" target="_blank" rel="noopener noreferrer">
+                Ver proyecto en GitHub <span aria-hidden="true">↗</span>
+              </a>
             </div>
           </div>
         </li>
-        <li class="ledger-entry reveal">
+
+        <li class="ledger-entry reveal" data-category="web">
           <p class="ledger-num">001</p>
           <div class="ledger-body">
             <div class="ledger-head">
-              <h4>Diseño de Páginas Web</h4>
-              <span class="ledger-date">Marzo 2026</span>
+              <h4>CampusBuild — Sistema de Gestión Académica</h4>
+              <span class="ledger-date">Mayo 2026</span>
             </div>
-            <p>Página web interactiva con una interfaz intuitiva y adaptable, enfocada en mejorar la experiencia de navegación del usuario.</p>
+            <p>Aplicación web interactiva para organizar tareas y deberes académicos con calendario integrado, validación de referencias obligatorias y persistencia local para el seguimiento de avances.</p>
             <div class="ledger-stack">
-              <span>HTML</span><span>CSS</span>
+              <span>HTML5</span><span>CSS3</span><span>JavaScript</span><span>LocalStorage</span>
+            </div>
+            <div class="ledger-links">
+              <a class="direct-link" href="https://github.com/ypd651/PROYECTO-JS-Yeison_Pallares-D2" target="_blank" rel="noopener noreferrer">
+                Ver proyecto en GitHub <span aria-hidden="true">↗</span>
+              </a>
             </div>
           </div>
         </li>
@@ -182,41 +398,82 @@
     </section>
 
     <section id="repositorios" class="section">
-      <p class="section-index reveal">05</p>
-      <h3 class="section-title reveal">Del GitHub, en tiempo real</h3>
-      <p class="section-lead reveal">Estos son mis repositorios más recientes — se actualizan solos cada vez que subo algo nuevo, incluidos los próximos proyectos.</p>
-      <div class="repos reveal" id="repoGrid">
-        <p class="repos-status" id="repoStatus">Cargando repositorios…</p>
+      <div class="section-head-row reveal">
+        <div>
+          <p class="section-index">05</p>
+          <h3 class="section-title">Proyectos de GitHub en vivo</h3>
+          <p class="section-lead">Se sincronizan automáticamente desde mi cuenta pública de GitHub cada vez que subo un nuevo proyecto, ordenados del más reciente al más antiguo con acceso directo y descripción corta.</p>
+        </div>
+        <button class="refresh-repos-btn" id="refreshReposBtn" type="button" title="Actualizar lista de proyectos desde GitHub">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12a9 9 0 0 0-9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/><path d="M3 12a9 9 0 0 0 9 9 9.75 9.75 0 0 0 6.74-2.74L21 16"/><path d="M16 16h5v5"/></svg>
+          <span>Sincronizar</span>
+        </button>
       </div>
-      <a class="repos-link reveal" href="https://github.com/ypd651?tab=repositories" target="_blank" rel="noopener noreferrer">Ver todos los repositorios en GitHub →</a>
+
+      <div class="repo-toolbar reveal">
+        <div class="repo-search-wrap">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+          <input type="search" id="repoSearch" class="repo-search" placeholder="Buscar repositorio o tecnología…" aria-label="Buscar proyectos de GitHub">
+        </div>
+        <select id="repoSort" class="repo-sort" aria-label="Ordenar repositorios">
+          <option value="recent">Más recientes</option>
+          <option value="name">Orden alfabético (A–Z)</option>
+          <option value="stars">Más populares</option>
+        </select>
+      </div>
+
+      <div class="filter-bar reveal" id="repoLangFilters" aria-label="Filtrar por lenguaje"></div>
+
+      <div class="repos-meta-line reveal" id="repoMetaLine" aria-live="polite"></div>
+
+      <div class="repos reveal" id="repoGrid">
+        <p class="repos-status" id="repoStatus">Cargando repositorios públicos desde GitHub…</p>
+      </div>
+
+      <div class="repos-footer reveal">
+        <button class="btn btn-outline repos-toggle-btn" id="toggleAllReposBtn" type="button" hidden>
+          Ver todos los proyectos
+        </button>
+        <a class="repos-link" href="https://github.com/ypd651?tab=repositories" target="_blank" rel="noopener noreferrer">
+          Explorar perfil completo en GitHub →
+        </a>
+      </div>
     </section>
 
     <section id="objetivo" class="section">
       <p class="section-index reveal">06</p>
       <h3 class="section-title reveal">A dónde quiero llegar</h3>
-      <p class="section-lead reveal">Empresas donde me encantaría aportar y seguir creciendo como desarrollador.</p>
+      <p class="section-lead reveal">Empresas de ingeniería e inteligencia artificial donde me gustaría aportar valor y seguir creciendo junto a equipos de alto nivel.</p>
 
       <div class="companies reveal">
         <a class="company-card" href="https://voxel51.com/careers/" target="_blank" rel="noopener noreferrer">
-          <img class="company-mark" src="img/images.png" alt="FiftyOne">
+          <div class="company-logo-box">
+            <img class="company-mark" src="img/images.png" alt="Logo de FiftyOne Voxel51">
+          </div>
           <span class="company-name">FiftyOne</span>
           <span class="company-tag">Voxel51 · Visual AI</span>
           <span class="company-go">Ver vacantes →</span>
         </a>
         <a class="company-card" href="https://www.anthropic.com/careers" target="_blank" rel="noopener noreferrer">
-          <img class="company-mark" src="img/images.jpeg" alt="Anthropic">
+          <div class="company-logo-box">
+            <img class="company-mark" src="img/images.jpeg" alt="Logo de Anthropic">
+          </div>
           <span class="company-name">Anthropic</span>
           <span class="company-tag">Inteligencia artificial</span>
           <span class="company-go">Ver vacantes →</span>
         </a>
         <a class="company-card" href="https://www.globant.com/careers" target="_blank" rel="noopener noreferrer">
-          <img class="company-mark" src="img/images (1).png" alt="Globant">
+          <div class="company-logo-box">
+            <img class="company-mark" src="img/images%20(1).png" alt="Logo de Globant">
+          </div>
           <span class="company-name">Globant</span>
           <span class="company-tag">Software y digital</span>
           <span class="company-go">Ver vacantes →</span>
         </a>
         <a class="company-card" href="https://www.endava.com/careers" target="_blank" rel="noopener noreferrer">
-          <img class="company-mark" src="img/images (1).jpeg" alt="Endava">
+          <div class="company-logo-box">
+            <img class="company-mark" src="img/images%20(1).jpeg" alt="Logo de Endava">
+          </div>
           <span class="company-name">Endava</span>
           <span class="company-tag">Ingeniería de software</span>
           <span class="company-go">Ver vacantes →</span>
@@ -227,38 +484,81 @@
     <section id="contacto" class="section contact">
       <p class="section-index reveal">07</p>
       <h3 class="section-title reveal">Hablemos</h3>
-      <p class="section-lead reveal">Estoy abierto a prácticas, colaboraciones y proyectos donde pueda seguir aprendiendo.</p>
+      <p class="section-lead reveal">Abierto a prácticas profesionales, posiciones junior backend/full-stack y proyectos donde pueda aportar y seguir aprendiendo.</p>
       <div class="contact-grid reveal">
-        <a class="contact-card" href="mailto:yeisonpallares80@gmail.com">
-          <span class="contact-label">Correo</span>
-          <span class="contact-value">yeisonpallares80@gmail.com</span>
-        </a>
-        <a class="contact-card" href="tel:+573152878971">
-          <span class="contact-label">Celular</span>
-          <span class="contact-value">+57 315 287 8971</span>
-        </a>
-        <a class="contact-card" href="https://wa.me/573152878971" target="_blank" rel="noopener noreferrer">
-          <span class="contact-label">WhatsApp</span>
-          <span class="contact-value">Escríbeme directo</span>
-        </a>
-        <a class="contact-card" href="https://github.com/ypd651" target="_blank" rel="noopener noreferrer">
-          <span class="contact-label">GitHub</span>
-          <span class="contact-value">github.com/ypd651</span>
-        </a>
+        <div class="contact-card">
+          <a class="contact-card-link" href="mailto:yeisonpallares80@gmail.com">
+            <span class="contact-label">Correo electrónico</span>
+            <span class="contact-value">yeisonpallares80@gmail.com</span>
+          </a>
+          <button class="copy-chip" type="button" data-copy="yeisonpallares80@gmail.com" aria-label="Copiar correo">
+            Copiar
+          </button>
+        </div>
+        <div class="contact-card">
+          <a class="contact-card-link" href="tel:+573152878971">
+            <span class="contact-label">Teléfono celular</span>
+            <span class="contact-value">+57 315 287 8971</span>
+          </a>
+          <button class="copy-chip" type="button" data-copy="+57 315 287 8971" aria-label="Copiar teléfono">
+            Copiar
+          </button>
+        </div>
+        <div class="contact-card">
+          <a class="contact-card-link" href="https://wa.me/573152878971" target="_blank" rel="noopener noreferrer">
+            <span class="contact-label">WhatsApp</span>
+            <span class="contact-value">Escríbeme directo →</span>
+          </a>
+        </div>
+        <div class="contact-card">
+          <a class="contact-card-link" href="https://github.com/ypd651" target="_blank" rel="noopener noreferrer">
+            <span class="contact-label">GitHub</span>
+            <span class="contact-value">github.com/ypd651 →</span>
+          </a>
+        </div>
       </div>
-      <a class="btn btn-primary contact-cv reveal" href="img/CV-Yeison-Pallares.pdf" download>
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12"/><path d="m7 10 5 5 5-5"/><path d="M5 21h14"/></svg>
-        Descargar hoja de vida en PDF
-      </a>
+
+      <div class="contact-actions reveal">
+        <a class="btn btn-primary" href="img/Copia%20de%20Hoja%20de%20Vida%20Conductor%20Formal%20Azul%20Blanco.pdf" download="CV-Yeison-Pallares-2026.pdf">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12"/><path d="m7 10 5 5 5-5"/><path d="M5 21h14"/></svg>
+          Descargar hoja de vida (PDF)
+        </a>
+        <button class="btn btn-outline" type="button" data-open-cv>
+          Vista previa del CV
+        </button>
+      </div>
     </section>
 
     <footer class="footer">
       <p>Yeison Fernei Pallares Duque — Bucaramanga, Colombia</p>
-      <p>Construido con HTML, CSS y JavaScript.</p>
+      <p class="footer-note">Edición Invierno 2026 · Actualizado automáticamente con GitHub.</p>
     </footer>
 
   </main>
 </div>
+
+<button class="back-to-top" id="backToTop" type="button" aria-label="Volver arriba" title="Volver arriba">
+  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m18 15-6-6-6 6"/></svg>
+</button>
+
+<div class="cv-modal" id="cvModal" role="dialog" aria-modal="true" aria-labelledby="cvModalTitle" hidden>
+  <div class="cv-modal-backdrop" data-close-cv></div>
+  <div class="cv-modal-dialog">
+    <div class="cv-modal-head">
+      <h3 id="cvModalTitle">Hoja de Vida — Yeison Fernei Pallares Duque</h3>
+      <div class="cv-modal-actions">
+        <a class="btn btn-primary btn-sm" href="img/Copia%20de%20Hoja%20de%20Vida%20Conductor%20Formal%20Azul%20Blanco.pdf" target="_blank" rel="noopener noreferrer">Abrir en pestaña</a>
+        <a class="btn btn-outline btn-sm" href="img/Copia%20de%20Hoja%20de%20Vida%20Conductor%20Formal%20Azul%20Blanco.pdf" download="CV-Yeison-Pallares-2026.pdf">Descargar</a>
+        <button class="cv-modal-close" type="button" data-close-cv aria-label="Cerrar vista previa">&times;</button>
+      </div>
+    </div>
+    <div class="cv-modal-body">
+      <iframe id="cvIframe" title="Vista previa de Hoja de Vida de Yeison Pallares" loading="lazy"></iframe>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
 
 <script src="script.js"></script>
 </body>
