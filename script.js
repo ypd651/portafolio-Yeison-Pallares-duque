@@ -2,7 +2,7 @@
   "use strict";
 
   const GITHUB_USER = "ypd651";
-  const CV_URL = "img/Hoja de Vida.pdf";
+  const CV_URL = "img/CV_Pallares_Duque_Yeison.pdf";
   const THEME_STORAGE_KEY = "portafolio-theme";
   const SNOW_STORAGE_KEY = "portafolio-snow";
   const REPOS_CACHE_KEY = "portafolio-repos-cache-v2";
